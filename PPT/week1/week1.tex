@@ -1,0 +1,309 @@
+
+
+\documentclass{beamer}
+\usetheme{Madrid}
+\usepackage{xeCJK}  % 中文支持
+\setCJKmainfont{SimHei}
+\usecolortheme{seahorse}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{siunitx}
+\usepackage{gensymb}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\title{全球通胀溢出的多频率网络与动态社区演化}
+\subtitle{基于TVP-VHAR与谱聚类的测度}
+\author{林晟}
+\institute{统计学院}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% 研究背景
+\begin{frame}{研究背景}
+\begin{itemize}
+\item \textbf{现实问题}: 在全球化背景下,通胀的跨国溢出机制分析与国际驱动因素识别已逐步成为宏观经济的热点问题。系列重大突发事件导致跨国供应链停滞、能源价格上涨以及 多国颁布刺激性财政货币政策,进而导致全球通货膨胀水平飙升,经济滞胀的风险大幅提升。
+\item \textbf{学术缺口}: 
+  \begin{itemize}
+  \item 传统TVP-VAR忽略多频率周期交互
+  \item 对社区演化和角色变化缺乏关注
+  \end{itemize}
+\item \textbf{研究目标}: 
+  \begin{enumerate}
+  \item 构建时变多频率通胀溢出网络
+  \item 识别动态发送-接收社区
+  \item 揭示跨周期传导机制
+  \item 预测通胀冲击影响
+  \end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+% 核心模型：TVP-VHAR
+\begin{frame}{核心模型：TVP-VHAR}
+\textbf{传统VHAR模型} (Corsi 2009):
+\begin{equation*}
+\boldsymbol{y}_t = \beta_0 + \beta_d \boldsymbol{y}_{t-1} + \beta_w \frac{1}{5}\sum_{i=1}^5 \boldsymbol{y}_{t-i} + \beta_m \frac{1}{22}\sum_{i=1}^{22} \boldsymbol{y}_{t-i} + \epsilon_t
+\end{equation*}
+
+\textbf{时变扩展 (TVP-VHAR)}:
+\begin{gather*}
+\boldsymbol{y}_t = \beta_{0,t}  + \beta_{m,t} \boldsymbol{y}_{t}^{(m)} + \beta_{y,t} \boldsymbol{y}_{t}^{(y)} + \epsilon_t \\
+\boldsymbol{\beta}_t = \boldsymbol{\beta}_{t-1} + \boldsymbol{\nu}_t, \quad \boldsymbol{\nu}_t \sim N(0,\boldsymbol{Q})
+\end{gather*}
+其中：
+\begin{itemize}
+\item $\boldsymbol{y}_{t}^{(m)} = \frac{1}{5}\sum_{i=1}^5 \boldsymbol{y}_{t-i}$（月度成分）
+\item $\boldsymbol{y}_{t}^{(y)} = \frac{1}{22}\sum_{i=1}^{22} \boldsymbol{y}_{t-i}$（年度成分）
+\end{itemize}
+\end{frame}
+
+% 第一张PPT：时变参数估计方法概述
+\begin{frame}{时变参数估计方法}
+  \begin{itemize}
+      \item 采用 TVP-QVAR 模型估计 时变参数，用于刻画通胀的跨国溢出效应。
+      \item 两步估计法：
+      \begin{enumerate}
+          \item \textbf{第一步}: 估计分位点上的共同因子 \( F(\tau) \)。
+          \item \textbf{第二步}: 在贝叶斯框架下，使用 MCMC+Gibbs抽样 估计时变系数 \( \beta_{it}(\tau) \)。
+      \end{enumerate}
+      \item 采用 \textbf{随机游走} 假设，使时变参数更加平滑。
+  \end{itemize}
+\end{frame}
+
+% 第二张PPT：TVP-QVAR 模型设定
+\begin{frame}{TVP-QVAR 模型设定}
+  设 \( y_t \) 为 \( N \times 1 \) 维通胀时间序列，TVP-QVAR 设定如下：
+  \begin{equation}
+      y_t = \sum_{l=1}^{p} B_{lt}(\tau) y_{t-l} + \Lambda_t(\tau) f_t(\tau) + \varepsilon_t(\tau),
+  \end{equation}
+  其中：
+  \begin{itemize}
+      \item \( B_{lt}(\tau) \) 是时变自回归系数矩阵。
+      \item \( \Lambda_t(\tau) \) 是时变因子载荷矩阵。
+      \item \( f_t(\tau) \) 为分位点上的共同因子。
+      \item \( \varepsilon_t(\tau) \) 服从非对称拉普拉斯分布 (ALD)。
+  \end{itemize}
+\end{frame}
+
+% 第三张PPT：时变参数估计方法
+\begin{frame}{时变参数估计方法}
+  \textbf{第一步: 估计分位点共同因子}：
+  \begin{itemize}
+      \item 采用 主成分分析（PCA） 确定共同因子初值。
+      \item 迭代最小化以下目标函数，直到收敛：
+  \end{itemize}
+  \begin{equation}
+      \min_{F(\tau), \Theta(\tau)} \frac{1}{NT} \sum_{i=1}^{N} \sum_{t=1}^{T} \rho_\tau \left( y_{it} - c_{it}(\tau) - \sum_{l=1}^{p} b'_{il}(\tau) y_{t-l} - \lambda'_i(\tau) f_t(\tau) \right)
+  \end{equation}
+  其中，\( \Theta(\tau) \) 包含所有待估参数。
+\end{frame}
+
+% 第四张PPT：贝叶斯估计方法
+\begin{frame}{贝叶斯框架下的时变参数估计}
+  \begin{itemize}
+      \item 采用 MCMC 框架，使用 Gibbs抽样 估计时变参数。
+      \item 设定时变参数服从随机游走：
+      \begin{equation}
+          \beta_{it}(\tau) = \beta_{i, t-1}(\tau) + v_{it}(\tau), \quad v_{it}(\tau) \sim N(0, V(\tau))
+      \end{equation}
+      \item 设定先验分布，并利用 Gibbs 抽样递归更新参数。
+  \end{itemize}
+\end{frame}
+
+% 第五张PPT：时变通胀在险溢出测度
+\begin{frame}{时变通胀在险溢出测度}
+  \begin{itemize}
+      \item 基于 分位数预测误差方差分解（QFEVD） 方法计算溢出效应。
+      \item 溢出测度定义：
+  \end{itemize}
+  \begin{equation}
+      CH_{i \leftarrow j, t}(\tau) = \frac{\omega_{jj}^{-1}(\tau) \sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \right)_{i,j}^2 }{\sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \Psi'_{ht}(\tau) \right)_{i,i}}
+  \end{equation}
+  其中：
+  \begin{itemize}
+      \item \( \Psi_{ht}(\tau) \) 为时变冲击响应矩阵。
+      \item \( \Omega(\tau) \) 为协方差矩阵。
+      \item \( CH_{i \leftarrow j, t}(\tau) \) 衡量 国家 \( j \) 对国家 \( i \) 的通胀风险溢出效应。
+  \end{itemize}
+\end{frame}
+
+% 第六张PPT：时变通胀在险溢出指数
+\begin{frame}{时变通胀在险溢出指数}
+  \begin{itemize}
+      \item 计算 净溢出指标：
+      \begin{equation}
+          NetH_{i \leftarrow j, t}(\tau) = CH_{i \leftarrow j, t}(\tau) - CH_{j \leftarrow i, t}(\tau)
+      \end{equation}
+      \item 计算 总溢出指数：
+      \begin{equation}
+          TotalH_t(\tau) = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1, j \neq i}^{N} CH_{i \leftarrow j, t}(\tau) \times 100
+      \end{equation}
+      \item 反映 全球通胀风险的跨国溢出效应。
+  \end{itemize}
+\end{frame}
+
+% 第一张PPT：LSTM 在时变参数估计中的作用
+\begin{frame}{LSTM 在时变参数估计中的作用}
+  \begin{itemize}
+      \item 传统的 TVP-QVAR 采用 贝叶斯MCMC估计，计算复杂度高，难以适用于高维场景。
+      \item LSTM 能够在 端到端训练 过程中直接学习时变参数，如：
+      \[
+      B_{lt}(\tau), \quad \Lambda_t(\tau)
+      \]
+      \item LSTM 通过 记忆门机制 处理时序数据，能够自适应地学习参数变化，而不依赖于手动设定的时变过程。
+  \end{itemize}
+\end{frame}
+
+% 第二张PPT：LSTM 结构
+
+
+% 第三张PPT：LSTM 如何估计 TVP-QVAR 模型参数
+\begin{frame}{LSTM 如何估计 TVP-QVAR 模型参数}
+  \begin{itemize}
+      \item 传统 TVP-QVAR 需要 两步估计：
+      \begin{enumerate}
+          \item 估计分位点因子 \( f_t(\tau) \)。
+          \item 采用贝叶斯方法估计 时变参数 \( B_{lt}(\tau), \Lambda_t(\tau) \)。
+      \end{enumerate}
+      \item LSTM 提供端到端的学习能力：
+      \begin{equation}
+          \hat{B}_{lt}(\tau), \hat{\Lambda}_t(\tau) = \text{LSTM}(y_{t-p:t}, f_t(\tau))
+      \end{equation}
+      \item 优势：
+      \begin{itemize}
+          \item 直接从数据中学习参数变化，无需设定随机游走过程。
+          \item 适用于高维数据，避免 MCMC 计算复杂度问题。
+          \item 能够捕捉长期依赖，提升预测能力。
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% 第四张PPT：LSTM 训练过程
+\begin{frame}{LSTM 训练过程}
+  训练 LSTM 估计时变参数的步骤：
+  \begin{enumerate}
+      \item 定义输入 \( X_t = (y_{t-p:t}, f_t(\tau)) \)，目标变量为 \( B_{lt}(\tau), \Lambda_t(\tau) \)。
+      \item 采用 均方误差 (MSE) 目标函数：
+      \begin{equation}
+          \mathcal{L} = \frac{1}{T} \sum_{t=1}^{T} \left( B_{lt}(\tau) - \hat{B}_{lt}(\tau) \right)^2
+      \end{equation}
+      \item 使用 Adam 优化器 训练神经网络。
+      \item 采用 滑动窗口方法 生成训练样本：
+      \begin{equation}
+          (X_t, Y_t) = (y_{t-p:t}, B_{lt}(\tau), \Lambda_t(\tau))
+      \end{equation}
+      \item 训练完成后，得到 LSTM 估计的时变参数：
+      \begin{equation}
+          \hat{B}_{lt}(\tau), \quad \hat{\Lambda}_t(\tau)
+      \end{equation}
+  \end{enumerate}
+\end{frame}
+
+% 第五张PPT：LSTM 在时变通胀在险溢出测度中的应用
+\begin{frame}{LSTM 在时变通胀在险溢出测度中的应用}
+  \begin{itemize}
+      \item 计算基于 LSTM 估计参数的 时变通胀在险溢出指数：
+      \begin{equation}
+          CH_{i \leftarrow j, t}(\tau) = \frac{\omega_{jj}^{-1}(\tau) \sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \right)_{i,j}^2 }{\sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \Psi'_{ht}(\tau) \right)_{i,i}}
+      \end{equation}
+      \item 采用 LSTM 估计 \( \Psi_{ht}(\tau) \) 和 \( \Omega(\tau) \)。
+      \item 生成时变通胀溢出网络，分析 不同国家间通胀溢出的动态变化。
+  \end{itemize}
+\end{frame}
+% 动态网络构建
+\begin{frame}{动态网络构建}
+\textbf{邻接矩阵} (时变溢出强度):
+\begin{equation*}
+A_t(i,j) = \frac{1}{H}\sum_{h=1}^H \left| \frac{\partial y_{i,t+h}}{\partial \epsilon_{j,t}} \right| \quad (h=1,3,6 \text{对应短/中/长期})
+\end{equation*}
+
+\textbf{标准化Laplacian矩阵}:
+\begin{equation*}
+\mathcal{L}_t = \boldsymbol{D}_t^{-1/2} (\boldsymbol{D}_t - \boldsymbol{A}_t) \boldsymbol{D}_t^{-1/2}
+\end{equation*}
+其中$\boldsymbol{D}_t = \text{diag}(\sum_j A_t(i,j))$为度矩阵
+\end{frame}
+
+% 社区检测
+\begin{frame}{社区检测：谱聚类+k-means}
+\textbf{SVD分解}:
+\begin{equation*}
+\mathcal{L}_t = \boldsymbol{U}_t \boldsymbol{\Sigma}_t \boldsymbol{V}_t^\top
+\end{equation*}
+取前$k$个左/右奇异向量 $\boldsymbol{U}_t^{(k)}, \boldsymbol{V}_t^{(k)}$
+
+\textbf{双向聚类}:
+\begin{align*}
+\text{发送社区: } & \text{k-means}(\boldsymbol{U}_t^{(k)}) \\
+\text{接收社区: } & \text{k-means}(\boldsymbol{V}_t^{(k)})
+\end{align*}
+\end{frame}
+
+% 预期结果
+\begin{frame}{预期结果}
+
+\begin{itemize}
+\item \textbf{社区划分}: 识别核心发送国(美、欧) vs 外围接收国(新兴市场)
+\item \textbf{频率异质性}: 
+  \begin{itemize}
+  \item 短期：供应链冲击主导跨社区溢出
+  \item 长期：货币政策主导社区内溢出
+  \end{itemize}
+\item \textbf{动态演化}: 地缘冲突导致社区重组（如俄被孤立）
+\end{itemize}
+
+
+\end{frame}
+
+% 创新点
+\begin{frame}{创新点}
+\begin{block}{方法论创新}
+\begin{itemize}
+\item 首创TVP-VHAR模型融合多频率与时变特征
+\item 开发双向谱聚类解构发送-接收不对称性
+\end{itemize}
+\end{block}
+
+\begin{block}{应用创新}
+\begin{itemize}
+\item 揭示通胀溢出的频域通道
+\item 量化国家角色的动态迁移（如中国从接收者转为次级发送者）
+\end{itemize}
+\end{block}
+\end{frame}
+
+\end{document}
