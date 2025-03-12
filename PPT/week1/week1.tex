@@ -43,7 +43,7 @@
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \title{全球通胀溢出的多频率网络与动态社区演化}
-\subtitle{基于TVP-VHAR与谱聚类的测度}
+\subtitle{基于TVP-VHAR图嵌入的谱聚类测度}
 \author{林晟}
 \institute{统计学院}
 \date{\today}
@@ -212,43 +212,12 @@
   \end{itemize}
 \end{frame}
 
-% 第四张PPT：LSTM 训练过程
-\begin{frame}{LSTM 训练过程}
-  训练 LSTM 估计时变参数的步骤：
-  \begin{enumerate}
-      \item 定义输入 \( X_t = (y_{t-p:t}, f_t(\tau)) \)，目标变量为 \( B_{lt}(\tau), \Lambda_t(\tau) \)。
-      \item 采用 均方误差 (MSE) 目标函数：
-      \begin{equation}
-          \mathcal{L} = \frac{1}{T} \sum_{t=1}^{T} \left( B_{lt}(\tau) - \hat{B}_{lt}(\tau) \right)^2
-      \end{equation}
-      \item 使用 Adam 优化器 训练神经网络。
-      \item 采用 滑动窗口方法 生成训练样本：
-      \begin{equation}
-          (X_t, Y_t) = (y_{t-p:t}, B_{lt}(\tau), \Lambda_t(\tau))
-      \end{equation}
-      \item 训练完成后，得到 LSTM 估计的时变参数：
-      \begin{equation}
-          \hat{B}_{lt}(\tau), \quad \hat{\Lambda}_t(\tau)
-      \end{equation}
-  \end{enumerate}
-\end{frame}
 
-% 第五张PPT：LSTM 在时变通胀在险溢出测度中的应用
-\begin{frame}{LSTM 在时变通胀在险溢出测度中的应用}
-  \begin{itemize}
-      \item 计算基于 LSTM 估计参数的 时变通胀在险溢出指数：
-      \begin{equation}
-          CH_{i \leftarrow j, t}(\tau) = \frac{\omega_{jj}^{-1}(\tau) \sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \right)_{i,j}^2 }{\sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \Psi'_{ht}(\tau) \right)_{i,i}}
-      \end{equation}
-      \item 采用 LSTM 估计 \( \Psi_{ht}(\tau) \) 和 \( \Omega(\tau) \)。
-      \item 生成时变通胀溢出网络，分析 不同国家间通胀溢出的动态变化。
-  \end{itemize}
-\end{frame}
 % 动态网络构建
 \begin{frame}{动态网络构建}
 \textbf{邻接矩阵} (时变溢出强度):
 \begin{equation*}
-A_t(i,j) = \frac{1}{H}\sum_{h=1}^H \left| \frac{\partial y_{i,t+h}}{\partial \epsilon_{j,t}} \right| \quad (h=1,3,6 \text{对应短/中/长期})
+A_t = (O_t)^{-\frac{1}{2}}\Phi_t(P_t)^{-\frac{1}{2}}
 \end{equation*}
 
 \textbf{标准化Laplacian矩阵}:

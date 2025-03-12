@@ -1,0 +1,192 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----- 必要的宏包 -----
+\usepackage{ctex}         % 处理中文
+\usepackage{geometry}     % 页面布局
+\usepackage{titlesec}     % 控制标题格式
+\usepackage{graphicx}     % 处理图片
+\usepackage{amsmath, amssymb}  % 数学公式
+\usepackage{booktabs}     % 专业表格
+\usepackage{longtable}    % 长表格
+\usepackage{array}        % 表格增强
+\usepackage{hyperref}     % 目录超链接
+\usepackage{enumerate}    % 列表
+\usepackage{setspace}     % 行距
+\usepackage{fancyhdr}     % 页眉页脚
+\usepackage{biblatex}     % 参考文献
+\usepackage{hyperref}
+
+\hypersetup{hypertex=true,
+colorlinks=true,
+linkcolor=blue,
+anchorcolor=blue,
+citecolor=blue}
+
+\addbibresource{ref.bib}  % 参考文献库
+
+% ----- 页面设置 -----
+\geometry{a4paper, left=3.17cm, right=3.17cm, top=2.54cm, bottom=2.54cm}
+
+% ----- 目录格式 -----
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=blue,
+    citecolor=black,
+}
+
+% ----- 标题格式 -----
+\titleformat{\section}{\centering\bfseries\zihao{-3}}{\chinese{section}、}{1em}{}  % 一级标题：一、
+\titleformat{\subsection}{\bfseries\zihao{4}}{（\chinese{subsection}）}{1em}{}  % 二级标题：（一）
+\titleformat{\subsubsection}{\bfseries\zihao{-4}}{\arabic{subsubsection}.}{1em}{}  % 三级标题：1.
+\titleformat{\paragraph}{\zihao{-4}}{\textbf{\chinese{paragraph}）}}{1em}{}  % 四级标题：①
+
+% ----- 行距设置 -----
+\renewcommand{\baselinestretch}{1.5} % 固定行距 24 磅
+
+% ----- 页眉页脚 -----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{2025 年（第十一届）全国大学生统计建模大赛}
+\fancyfoot[C]{\thepage}
+
+% ----- 开始正文 -----
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    {\zihao{-2} \bf 2025 年（第十一届）全国大学生统计建模大赛} \par
+    \vspace{2cm}
+    {\zihao{-3} \bf 参赛作品} \par
+    \vspace{3cm}
+    {\zihao{3} 参赛学校：XXXXXX 大学} \par
+    {\zihao{3} 论文题目：XX 统计模型的优化研究} \par
+    {\zihao{3} 参赛队员：XXX，XXX，XXX} \par
+    {\zihao{3} 指导老师：XXX} \par
+    \vfill
+    {\zihao{3} 作品编号：TJJM20250000000} \par
+\end{titlepage}
+
+% ----- 目录 -----
+\tableofcontents
+\newpage
+
+% ----- 摘要 -----
+\section*{摘要}
+\addcontentsline{toc}{section}{摘要}
+\begin{spacing}{1.5} % 行距 24 磅
+    {\zihao{-3} \bf 论文题目}  % 论文题目 方正小标宋 三号
+    \vspace{0.5cm}
+    
+    {\zihao{4} \textbf{摘要}} \par  % 摘要标题 黑体 四号
+    \noindent{\zihao{-4} % 宋体 小四 24 磅
+    本文研究了……（填写摘要内容）\par
+    }
+    
+    \textbf{关键词}：统计建模，相对贫困，数据分析
+\end{spacing}
+
+\newpage
+
+% ----- 正文 -----
+\section{引言}
+今世界处于百年未有之大变局,从新冠疫情席卷全球到俄乌战争全面爆发,再到硅谷银行的突然倒闭,系列重大突发事件导致跨国供应链停滞、能源价格上涨以及  多国颁布刺激性财政货币政策,进而导致全球通货膨胀(后文简称通胀)水平飙升,经  济滞胀的风险大幅提升。习近平总书记在二十国集团领导人第十七次峰会第一阶段  会议上指出:“要遏制全球通胀,化解系统性经济金融风险,特别是发达经济体要减少  货币政策调整的负面外溢效应,将债务稳定在可持续水平”。在如今全球通胀尚处  高位的情境下,如何及时准确测度跨国通胀外溢效应,识别并量化通胀输入型风险,  是中国防范化解系统性风险,统筹发展和安全亟需解决的重要问题。
+
+\section{理论分析与文献综述}
+
+在全球宏观经济环境高度不稳定的时代背景下,研究宏观风险尤其是通胀风险  问题,存在其必要性与重要性。当多个国家出现了历史性的高通胀时,需要考虑在极  端时期如何准确测度跨国在险通胀的时变溢出效应。因此,本文的文献综述先围绕  在险通胀与通胀溢出的相关理论问题展开,接着概述目前关于在险通胀与时变风险  溢出相关研究方法的进展,说明目前关于国家间在险通胀时变溢出问题的研究仍有  提升空间。
+
+\subsection{在险通胀的基本概念}
+在 险 价 值(VaR)概 念 的 提 出 ,最 初 是 为 了 解 决 金 融 领 域 的 风 险 防 控 问 题 ,  Adrian et al.(2019)延拓该思想至宏观经济的在险增长(GaR)分析中,通过在宏观  经 济 与 金 融 关 联 的 分 析 框 架 中 嵌 入 分 位 数 回 归 的 方 法 ,发 现 金 融 状 况 指 数 能 够 有  效测度与预测宏观经济的下行风险,GaR 相关的经济增长风险问题也被各界广泛  关 注(Plagborg-Møller et al.,2020;Brownlees and Souza,2021;Adrian et al.,2022;  Ferrara et al.,2022)。
+
+\section{模型设定与方法说明}
+
+本文首先给出基准模型时变参数向量自回归（TVP-VAR）的设定，再由此引入不同频率的影响因子构建时变参数—异方差自回归模型（TVP-VHAR），并给出深度学习框架下的时变参数估计方法，基于（）指标对估计效率进行对比。然后拓展xxx的关联性指数测  算方法,
+基于 TVP-VHAR 模型估计结果测算时变的通胀溢出指数，最后基于协同谱聚类方法实现通货膨胀溢出网络的社区发现和社区分裂检测，并对社区之间的时变影响路径进行分析。
+
+\subsection{模型设定}
+令$\{y_t\}_{t=1}^T$为$N \times 1$的时间序列，本文的$y_t$指选取的xx个国家的通胀环比增长率的时间序列，其当期与滞后期的依赖性可以通过以下VAR模型进行描述：
+
+\begin{equation}
+    y_t = b + \sum_{i=1}^{p} \Phi_{p} y_{t-p} + \epsilon_t,t=1,2,...,T
+\end{equation}
+
+其中，$b$为$N \times 1$维的截距项，$\Phi_{p}$为$N \times N$维的自回归系数矩阵，$p$为滞后阶数，可由信息准则进行确定。$\epsilon_t$为$N \times 1$维的随机误差项，其方差协方差矩阵记作$\Sigma$。
+
+考虑到国际局势的变动性和复杂性，简单的VAR难以及时反映国际通胀传导网络的更新情况，且会造成参数估计有偏，因此引入时变参数的向量自回归模型（TVP-VAR），即：
+
+\begin{equation}
+    y_t = b_t + \sum_{i=1}^{p} \Phi_{p}^t y_{t-p} + \epsilon_t  ,t=1,2,...,T
+\end{equation}
+
+其中，$b_t$为$N \times 1$维的截距项，$\Phi_{p}^t$为$N \times N$维的自回归系数矩阵且为时间$t$的函数，即$b_t,\Phi_{p}^t$是时变的。
+
+为反映通胀传导的短期机制和长期特征，引入异质频率的影响因子，构建时变参数—异方差自回归模型（TVP-VHAR），即：
+
+\begin{equation}\label{TVP-VHAR}
+    y_t = b_t + \sum_{i=1}^{p} \Phi_{p}^t y_{t-p}  + \sum_{i=1}^{q} \Theta _{q}^s y_{s-q}+\epsilon_t,t=1,2,...,T,s=1,2,...,S
+\end{equation}
+其中，$\Theta_{q}^s$为$N \times N$维的时变影响因子矩阵且为时间$s$的函数，且$s$以年为周期。TVP-VHAR 反映了通胀溢出的短期和长期机理，基于此可以构建通胀传导的长短期时变网络。
+
+可以通过逐条方城估计法估计模型的时变参数，因此，将 (\ref{TVP-VHAR})式拆解为:
+
+\begin{equation}
+    \begin{aligned}
+        y_{t,k} &= b_{t,k} + \sum_{i=1}^{p} \phi_{p}^{t,k} y_{t-p} + \sum_{i=1}^{q} \theta _{q}^{s,k} y_{s-q}+\epsilon_{t,k}, \\
+        &\quad t=1,2,...,T, \quad s=1,2,...,S, \quad k=1,2,...,N.
+    \end{aligned}
+\end{equation}
+
+由于随机扰动项中可能存在同期相关性，即$\Sigma$可能存在非零的非对角元素，参考xx的做法，将随机扰动项拆分为公共因子和个体成分，即：
+
+\begin{equation}
+    \epsilon_{t,k} = \lambda'_kf_t+e_{t,k}
+\end{equation}
+
+其中，$\lambda'_k$为$r \times 1$维的公共因子载荷向量，$f_t=(f_{1,t},f_{2,t},...,f_{r,t})$为$r \times 1$维的公共因子组成的向量，$e_{t,k}=(e_{t,1},e_{t,2},...,e_{t,N})$为$N \times 1$维的残差的特异性成分。
+其满足  均值为 0,方差协方差矩阵$\Sigma$为 $N × N$ 维对角矩阵的假设。
+
+根据xxx的方法，可以假设$\phi$和$\theta$服从随机游走：
+
+\begin{equation}
+    \phi_{p}^{t,k}=\phi_p^{t-1,k}+\gamma_t 
+\end{equation}
+
+\begin{equation}
+    \theta_{q}^{s,k}=\theta_q^{s-1,k}+\delta_s
+\end{equation}
+
+其中，$\gamma_t,\delta_s$为均值为0，方差协方差阵$\Sigma_\gamma,\Sigma_\delta$为斜对角阵且互不相关的$N \times 1$维的随机扰动项。
+
+基于上述讨论，将模型改写为：
+
+\begin{equation}
+y_t = \beta_{tk} x'_{tk}+e_{tk}
+\end{equation}
+
+其中，$x_{tk}=(1,y'_{t-1},...,y'_{t-p},f'_{t})'$是一个$P \times 1$维向量，$P=1+Np+r$,包含截距项，$y_t$的全部滞后项、全部公共因子$f_t$。$\beta_{tk}=(b_{tk},\phi'_{p}^{t,k},\theta'_{q}^{s,k},\lambda'_{t,k})'$为$P \times 1$维的模型参数向量，其分量对应了截距项、滞后项的系数、公共因子的系数。
+\subsection{深度学习方法}
+采用LSTM模型进行时变参数估计，LSTM模型是一种递归神经网络，可以学习到序列数据中的长期依赖关系。LSTM模型的输入是时序数据，输出是预测的时变参数。
+\subsubsection{LSTM模型}
+LSTM模型由输入门、遗忘门、输出门和记忆单元组成，其定义如下：
+\begin{equation}
+    \begin{array}{ll}
+        i_t = \sigma(W_{ii} x_t + W_{hi} h_{t-1} + b_i) \\
+        f_t = \sigma(W_{if} x_t + W_{hf} h_{t-1} + b_f) \\
+        o_t = \sigma(W_{io} x_t + W_{ho} h_{t-1} + b_o) \\
+        g_t = \tanh(W_{ig} x_t + W_{hg} h_{t-1} + b_g) \\
+        c_t = f_t \odot c_{t-1} + i_t \odot g_t \\
+        h_t = o_t \odot \tanh(c_t)
+    \end{array}
+\end{equation}
+其中，$x_t$为当前时刻的输入向量，$h_{t-1}$为上一时刻的输出向量，$W$为权重矩阵，$b$为偏置项，$\sigma$为激活函数。
+
+
+
+
+% ----- 参考文献 -----
+\newpage
+\printbibliography
+
+\end{document}
