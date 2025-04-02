@@ -1,9 +1,17 @@
+# 加载必要的库
 library(tseries)   # ADF检验
 library(moments)   # 计算偏度、峰度
 library(zoo)       # 处理时间序列
 library(seasonal)  # 时间序列季节性调整
 library(knitr)     # 表格展示
 library(xtable)    # LaTeX 输出
+library(urca)      # 协整检验
+library(ggplot2)   # 可视化
+library(gridExtra) # 处理多个图
+library(reshape2)  # 转换数据格式
+library(changepoint)  # 变点检测
+library(classInt)  # 用于 Jenks Natural Breaks
+library(dplyr)     # 数据处理
 
 # 读取数据
 file_path <- "new_data\\transposed_cpi_data_filtered.csv"
@@ -44,7 +52,8 @@ for (i in 2:ncol(df_adjusted)) {
 
 save_path <- "new_data\\final_cpi_data_filtered.csv"
 write.csv(df_mom, save_path, row.names = FALSE)
-#===========================================================描述性统计==========================================
+
+# =========================================================== 描述性统计 ===========================================
 # 进行ADF单位根检验
 non_stationary_results <- data.frame(Country = character(), P_Value = numeric(), stringsAsFactors = FALSE)
 
@@ -65,6 +74,7 @@ print(non_stationary_results)
 
 # 以表格形式展示
 kable(non_stationary_results)
+
 desc_stats <- data.frame(Country = character(),
                          Mean = numeric(),
                          Median = numeric(),
@@ -99,19 +109,14 @@ print("描述性统计：")
 print(desc_stats)
 kable(desc_stats)
 
-# ====================================================================直方图 ========================================================
+# ==================================================================== 直方图 ========================================================
 tex_output <- xtable(desc_stats)
 print(tex_output, file = "descriptive_statistics.tex")
 
-library(ggplot2)    
-library(gridExtra)  
-library(reshape2)   
-
-# 先整理数据（去除NA并转换为长格式）
+# 生成所有国家的直方图
 df_long <- melt(df_mom, id.vars = "Date", variable.name = "Country", value.name = "Inflation")
 df_long <- na.omit(df_long)  # 删除缺失值
 
-# 生成所有国家的直方图
 plot_list <- list()
 unique_countries <- unique(df_long$Country)  # 获取所有国家名称
 
@@ -129,28 +134,31 @@ for (i in seq_along(unique_countries)) {
   plot_list[[i]] <- p  # 存入列表
 }
 
-
 final_plot <- do.call(grid.arrange, c(plot_list, ncol = 5))
 
-
 ggsave("new_data\\Inflation_Histograms.png", plot = final_plot, width = 15, height = 10, dpi = 300)
-#=====================================================================变点1================================================
-library(ggplot2)
-library(reshape2)  
-library(changepoint)  # 变点检测
 
-# 转换数据为长格式
-df_long <- melt(df_mom, id.vars = "Date", variable.name = "Country", value.name = "Inflation")
-df_long <- na.omit(df_long)
+# =================================================================== 协整检验 ============================================
+# 选择需要进行协整检验的列
+selected_columns <- df_mom[, -1]  # 删除日期列，选择其他国家的通胀数据
+selected_columns_clean <- na.omit(selected_columns)  # 删除NA值
 
-# 计算每个时间点的平均值、最小值和最大值
+# 转换为矩阵格式
+data_matrix <- as.matrix(selected_columns_clean)
+
+# 进行Johansen协整检验
+johansen_test <- ca.jo(data_matrix, type = "trace", K = 2, spec = "longrun")
+
+# 输出协整检验结果
+summary(johansen_test)
+
+# ==================================================================== 变点1 ========================================================
 df_summary <- aggregate(Inflation ~ Date, data = df_long, 
                         FUN = function(x) c(mean = mean(x), min = min(x), max = max(x)))
 
 df_summary <- do.call(data.frame, df_summary)  # 拆分嵌套列
 colnames(df_summary) <- c("Date", "Mean_Inflation", "Min_Inflation", "Max_Inflation")
 
-# 变点检测
 cpt <- cpt.meanvar(df_summary$Mean_Inflation, method = "PELT")  # PELT 方法检测均值变点
 change_points <- cpts(cpt)  # 获取变点索引
 change_dates <- df_summary$Date[change_points]  # 获取变点对应的时间点
@@ -174,65 +182,6 @@ p <- ggplot(df_summary, aes(x = Date)) +
 ggsave("new_data\\Inflation_TimeSeries.png", 
        plot = p, width = 12, height = 6, dpi = 300)
 
-p_limited <- ggplot(df_summary, aes(x = Date)) +
-  geom_ribbon(aes(ymin = pmin(Min_Inflation, 5), ymax = pmin(Max_Inflation, 5)), 
-              fill = "gray80", alpha = 0.5) +  # 灰色区间，确保最高不超过 5
-  geom_line(aes(y = pmin(Mean_Inflation, 5)), color = "black", size = 1) +  # 黑色均值曲线，限制最大值
-  geom_vline(xintercept = as.numeric(change_dates), linetype = "dashed", color = "red", size = 1) +  # 变点
-  labs(title = "全球通胀率时间序列（最高值限制为 5）",
-       y = "通胀率 (%)", x = "时间") +
-  ylim(NA, 5) +  # 限制纵坐标最高为 5
-  theme_classic() +  # 去除背景网格
-  theme(axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14, face = "bold"),
-        plot.title = element_text(size = 16, face = "bold", hjust = 0.5))
-
-# 保存图片
-ggsave("C:\\Users\\rog\\Desktop\\Study\\统模\\Global-Inflation-Spillovers\\Inflation_TimeSeries_Limited.png", 
-       plot = p_limited, width = 12, height = 6, dpi = 300)
-#================================================================变点2========================================
-library(ggplot2)
-library(classInt)  # 用于 Jenks Natural Breaks
-library(reshape2)  
-library(dplyr)
-
-# 转换数据为长格式
-df_long <- melt(df_mom, id.vars = "Date", variable.name = "Country", value.name = "Inflation")
-df_long <- na.omit(df_long)
-
-# 计算每个时间点的全球通胀均值
-df_summary <- df_long %>%
-  group_by(Date) %>%
-  summarise(Mean_Inflation = mean(Inflation, na.rm = TRUE))
-
-# 使用 Jenks Natural Breaks 方法找到变点
-num_classes <- 4  # 你可以调整这个值，通常 4~6 之间
-jenks_breaks <- classIntervals(df_summary$Mean_Inflation, num_classes, style = "jenks")$brks
-
-# 找到变点时间点
-change_dates <- df_summary$Date[df_summary$Mean_Inflation %in% jenks_breaks]
-
-# 打印变点时间点
-print("Jenks Natural Breaks 变点时间：")
-print(change_dates)
-
-# 绘图
-p_jenks <- ggplot(df_summary, aes(x = Date, y = Mean_Inflation)) +
-  geom_line(color = "black", size = 1) +  # 画出均值曲线
-  geom_vline(xintercept = as.numeric(change_dates), linetype = "dashed", color = "red", size = 1) +  # 变点
-  labs(title = "全球通胀率时间序列（Jenks Natural Breaks 变点检测）",
-       y = "通胀率 (%)", x = "时间") +
-  theme_classic() +  # 去除背景网格
-  theme(axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14, face = "bold"),
-        plot.title = element_text(size = 16, face = "bold", hjust = 0.5))
-
-# 保存图片
-ggsave("new_data\\Inflation_Jenks.png", 
-       plot = p_jenks, width = 12, height = 6, dpi = 300)
-
-# 显示图表
-print(p_jenks)
 
 
 

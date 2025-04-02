@@ -43,7 +43,7 @@
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \title{全球通胀溢出的多频率网络与动态社区演化}
-\subtitle{基于TVP-VHAR图嵌入的谱聚类测度}
+\subtitle{基于GAT图嵌入的谱聚类测度}
 \author{林晟}
 \institute{统计学院}
 \date{\today}
@@ -52,26 +52,103 @@
 
 \frame{\titlepage}
 
-% 研究背景
-\begin{frame}{研究背景}
-\begin{itemize}
-\item \textbf{现实问题}: 在全球化背景下,通胀的跨国溢出机制分析与国际驱动因素识别已逐步成为宏观经济的热点问题。系列重大突发事件导致跨国供应链停滞、能源价格上涨以及 多国颁布刺激性财政货币政策,进而导致全球通货膨胀水平飙升,经济滞胀的风险大幅提升。
-\item \textbf{学术缺口}: 
+\begin{frame}{以往研究及背景}
+  \begin{block}{现实问题}
+    在全球化背景下,通胀的跨国溢出机制分析与国际驱动因素识别已逐步成为宏观经济的热点问题。系列重大突发事件导致跨国供应链停滞、能源价格上涨以及多国颁布\textbf{扩张性财政货币政策}，进而导致全球通货膨胀水平飙升，经济滞胀的风险大幅提升。
+  \end{block}
+
   \begin{itemize}
-  \item 传统TVP-VAR忽略多频率周期交互
-  \item 对社区演化和角色变化缺乏关注
+    \item 主要聚焦通货膨胀的整体风险或个别极端事件（如COVID-19、俄乌冲突）。
+    \item 研究特定历史时期中极端事件冲击带来的通货膨胀及其溢出效应。
+    \item 聚焦代表性国家如G7、G20，研究范围相对较小，往往忽视经济体量小但在金融、原材料、进出口领域发挥重要作用的国家。
+    \item 大多数研究基于短期影响（月度数据）。
+    \item 经济体分类依赖于先验知识，如按国际组织或行业划分，缺乏数据驱动的方法。
   \end{itemize}
-\item \textbf{研究目标}: 
-  \begin{enumerate}
-  \item 构建时变多频率通胀溢出网络
-  \item 识别动态发送-接收社区
-  \item 揭示跨周期传导机制
-  \item 预测通胀冲击影响
-  \end{enumerate}
-\end{itemize}
 \end{frame}
 
 
+\begin{frame}{创新点与待解决问题}
+  \begin{block}{待解决问题}
+    \begin{itemize}
+      \item 如何解决高维估计问题以更有效地识别并更多经济体在全球通胀中的作用？
+      \item 如何从混频的角度全面理解国际通货膨胀的溢出效应？
+      \item 如何实现对社区内外通胀不平等的精确测度和影响分析？
+    \end{itemize}
+    \vspace{0.2cm}
+  \begin{block}{创新点}
+    \begin{itemize}
+      \item 扩大研究对象，包括在全球通货膨胀中起重要作用的小型经济体。
+      \item 引入长期因素进行讨论，考虑网络溢出的混频影响。
+      \item 测度并研究国际通货膨胀中的社区性不平等现象。
+      \item 应用图神经网络（GAT）提供更有效的参数估计方式，以估计高维的长短期溢出网络。
+    \end{itemize}
+  \end{block}
+
+
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{典型事实}
+  \centering
+  \begin{columns}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{fig/Inflation_Jenks.png}
+    \textbf{(a) 全球通胀率平均趋势}
+    
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{fig/Inflation_TimeSeries.png}
+    \textbf{(b) 全球通胀率区间}
+  \end{columns}
+
+  \vspace{0.5cm} % 添加一些垂直空间
+  \begin{block}{核心发现}
+  \begin{itemize}
+    \item 全球通胀水平显著提高
+    \item 全球通胀风险近年来明显加剧
+  \end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{典型事实}
+  \centering
+  \begin{columns}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{fig/Inflation_CorrelationHeatmap.png}
+    \textbf{(a) 全球通胀相关性热力图}
+    
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{fig/Inflation_NetworkGraph.png}
+    \textbf{(b) 全球通胀网络图}
+  \end{columns}
+
+  \vspace{0.1cm} % 添加一些垂直空间
+
+  \begin{block}{核心发现}
+    \begin{itemize}
+      \item 全球通胀连接相关性紧密，显示出高度的互动性。
+      \item 呈现核心-边缘社区特征，部分经济体在全球通胀动态中起核心作用。
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{研究意义}
+  \begin{itemize}
+    \item \textbf{理论贡献}：通过引入新的数据驱动方法和长期分析视角，本研究为理解通货膨胀的跨国溢出效应提供了新的理论框架。特别是在包括小型经济体和考虑非传统因素的情境下，扩展了传统宏观经济模型。
+    
+    \item \textbf{政策影响}：研究结果可以为政策制定者提供更精确的工具，以预测和应对国际通货膨胀的影响。尤其是在全球经济危机情况下，能够更好地制定包容性财政和货币政策。
+    
+    \item \textbf{经济预测}：通过改进通货膨胀预测模型，本研究提高了经济预测的准确性，特别是在全球或区域经济不稳定期间。这有助于经济决策者和市场参与者更好地制定策略。
+    
+    \item \textbf{社会贡献}：提高对经济波动敏感的小型国家的可见度，有助于全球经济治理中更公平的声音分配。这可能导致更平衡的全球经济政策，从而促进全球经济的稳定性和包容性。
+  \end{itemize}
+\end{frame}
 % 核心模型：TVP-VHAR
 \begin{frame}{核心模型：TVP-VHAR}
 \textbf{传统VHAR模型} (Corsi 2009):
@@ -86,131 +163,11 @@
 \end{gather*}
 其中：
 \begin{itemize}
-\item $\boldsymbol{y}_{t}^{(m)} = \frac{1}{5}\sum_{i=1}^5 \boldsymbol{y}_{t-i}$（月度成分）
-\item $\boldsymbol{y}_{t}^{(y)} = \frac{1}{22}\sum_{i=1}^{22} \boldsymbol{y}_{t-i}$（年度成分）
+\item $\boldsymbol{y}_{t}^{(m)} = \sum_{i=1}^5 \boldsymbol{y}_{t-i}$（月度成分）
+\item $\boldsymbol{y}_{t}^{(y)} = \sum_{i=1}^{22} \boldsymbol{y}_{t-i}$（年度成分）
 \end{itemize}
 \end{frame}
 
-% 第一张PPT：时变参数估计方法概述
-\begin{frame}{时变参数估计方法}
-  \begin{itemize}
-      \item 采用 TVP-QVAR 模型估计 时变参数，用于刻画通胀的跨国溢出效应。
-      \item 两步估计法：
-      \begin{enumerate}
-          \item \textbf{第一步}: 估计分位点上的共同因子 \( F(\tau) \)。
-          \item \textbf{第二步}: 在贝叶斯框架下，使用 MCMC+Gibbs抽样 估计时变系数 \( \beta_{it}(\tau) \)。
-      \end{enumerate}
-      \item 采用 \textbf{随机游走} 假设，使时变参数更加平滑。
-  \end{itemize}
-\end{frame}
-
-% 第二张PPT：TVP-QVAR 模型设定
-\begin{frame}{TVP-QVAR 模型设定}
-  设 \( y_t \) 为 \( N \times 1 \) 维通胀时间序列，TVP-QVAR 设定如下：
-  \begin{equation}
-      y_t = \sum_{l=1}^{p} B_{lt}(\tau) y_{t-l} + \Lambda_t(\tau) f_t(\tau) + \varepsilon_t(\tau),
-  \end{equation}
-  其中：
-  \begin{itemize}
-      \item \( B_{lt}(\tau) \) 是时变自回归系数矩阵。
-      \item \( \Lambda_t(\tau) \) 是时变因子载荷矩阵。
-      \item \( f_t(\tau) \) 为分位点上的共同因子。
-      \item \( \varepsilon_t(\tau) \) 服从非对称拉普拉斯分布 (ALD)。
-  \end{itemize}
-\end{frame}
-
-% 第三张PPT：时变参数估计方法
-\begin{frame}{时变参数估计方法}
-  \textbf{第一步: 估计分位点共同因子}：
-  \begin{itemize}
-      \item 采用 主成分分析（PCA） 确定共同因子初值。
-      \item 迭代最小化以下目标函数，直到收敛：
-  \end{itemize}
-  \begin{equation}
-      \min_{F(\tau), \Theta(\tau)} \frac{1}{NT} \sum_{i=1}^{N} \sum_{t=1}^{T} \rho_\tau \left( y_{it} - c_{it}(\tau) - \sum_{l=1}^{p} b'_{il}(\tau) y_{t-l} - \lambda'_i(\tau) f_t(\tau) \right)
-  \end{equation}
-  其中，\( \Theta(\tau) \) 包含所有待估参数。
-\end{frame}
-
-% 第四张PPT：贝叶斯估计方法
-\begin{frame}{贝叶斯框架下的时变参数估计}
-  \begin{itemize}
-      \item 采用 MCMC 框架，使用 Gibbs抽样 估计时变参数。
-      \item 设定时变参数服从随机游走：
-      \begin{equation}
-          \beta_{it}(\tau) = \beta_{i, t-1}(\tau) + v_{it}(\tau), \quad v_{it}(\tau) \sim N(0, V(\tau))
-      \end{equation}
-      \item 设定先验分布，并利用 Gibbs 抽样递归更新参数。
-  \end{itemize}
-\end{frame}
-
-% 第五张PPT：时变通胀在险溢出测度
-\begin{frame}{时变通胀在险溢出测度}
-  \begin{itemize}
-      \item 基于 分位数预测误差方差分解（QFEVD） 方法计算溢出效应。
-      \item 溢出测度定义：
-  \end{itemize}
-  \begin{equation}
-      CH_{i \leftarrow j, t}(\tau) = \frac{\omega_{jj}^{-1}(\tau) \sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \right)_{i,j}^2 }{\sum_{h=0}^{H} \left( \Psi_{ht}(\tau) \Omega(\tau) \Psi'_{ht}(\tau) \right)_{i,i}}
-  \end{equation}
-  其中：
-  \begin{itemize}
-      \item \( \Psi_{ht}(\tau) \) 为时变冲击响应矩阵。
-      \item \( \Omega(\tau) \) 为协方差矩阵。
-      \item \( CH_{i \leftarrow j, t}(\tau) \) 衡量 国家 \( j \) 对国家 \( i \) 的通胀风险溢出效应。
-  \end{itemize}
-\end{frame}
-
-% 第六张PPT：时变通胀在险溢出指数
-\begin{frame}{时变通胀在险溢出指数}
-  \begin{itemize}
-      \item 计算 净溢出指标：
-      \begin{equation}
-          NetH_{i \leftarrow j, t}(\tau) = CH_{i \leftarrow j, t}(\tau) - CH_{j \leftarrow i, t}(\tau)
-      \end{equation}
-      \item 计算 总溢出指数：
-      \begin{equation}
-          TotalH_t(\tau) = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1, j \neq i}^{N} CH_{i \leftarrow j, t}(\tau) \times 100
-      \end{equation}
-      \item 反映 全球通胀风险的跨国溢出效应。
-  \end{itemize}
-\end{frame}
-
-% 第一张PPT：LSTM 在时变参数估计中的作用
-\begin{frame}{LSTM 在时变参数估计中的作用}
-  \begin{itemize}
-      \item 传统的 TVP-QVAR 采用 贝叶斯MCMC估计，计算复杂度高，难以适用于高维场景。
-      \item LSTM 能够在 端到端训练 过程中直接学习时变参数，如：
-      \[
-      B_{lt}(\tau), \quad \Lambda_t(\tau)
-      \]
-      \item LSTM 通过 记忆门机制 处理时序数据，能够自适应地学习参数变化，而不依赖于手动设定的时变过程。
-  \end{itemize}
-\end{frame}
-
-% 第二张PPT：LSTM 结构
-
-
-% 第三张PPT：LSTM 如何估计 TVP-QVAR 模型参数
-\begin{frame}{LSTM 如何估计 TVP-QVAR 模型参数}
-  \begin{itemize}
-      \item 传统 TVP-QVAR 需要 两步估计：
-      \begin{enumerate}
-          \item 估计分位点因子 \( f_t(\tau) \)。
-          \item 采用贝叶斯方法估计 时变参数 \( B_{lt}(\tau), \Lambda_t(\tau) \)。
-      \end{enumerate}
-      \item LSTM 提供端到端的学习能力：
-      \begin{equation}
-          \hat{B}_{lt}(\tau), \hat{\Lambda}_t(\tau) = \text{LSTM}(y_{t-p:t}, f_t(\tau))
-      \end{equation}
-      \item 优势：
-      \begin{itemize}
-          \item 直接从数据中学习参数变化，无需设定随机游走过程。
-          \item 适用于高维数据，避免 MCMC 计算复杂度问题。
-          \item 能够捕捉长期依赖，提升预测能力。
-      \end{itemize}
-  \end{itemize}
-\end{frame}
 
 
 % 动态网络构建
@@ -242,37 +199,34 @@ A_t = (O_t)^{-\frac{1}{2}}\Phi_t(P_t)^{-\frac{1}{2}}
 \end{align*}
 \end{frame}
 
-% 预期结果
-\begin{frame}{预期结果}
+\begin{frame}{可行性及进展}
+  \begin{block}{研究方法的可行性}
+    \begin{itemize}
+      \item 利用神经网络的计算能力，有效追踪和分析短期和长期通货膨胀的全球溢出效应。
+      \item 数据采用国际清算银行核算结果，保证有效性和可得性
+    \end{itemize}
+  \end{block}
 
-\begin{itemize}
-\item \textbf{社区划分}: 识别核心发送国(美、欧) vs 外围接收国(新兴市场)
-\item \textbf{频率异质性}: 
-  \begin{itemize}
-  \item 短期：供应链冲击主导跨社区溢出
-  \item 长期：货币政策主导社区内溢出
-  \end{itemize}
-\item \textbf{动态演化}: 地缘冲突导致社区重组（如俄被孤立）
-\end{itemize}
-
+  \begin{figure}
+    \centering
+    \begin{minipage}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{fig/short_term_spillover_heatmap.png}
+      \caption{短期通货膨胀溢出热力图}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{fig/long_term_spillover_heatmap.png}
+      \caption{长期通货膨胀溢出热力图}
+    \end{minipage}
+  \end{figure}
+  
 
 \end{frame}
 
-% 创新点
-\begin{frame}{创新点}
-\begin{block}{方法论创新}
-\begin{itemize}
-\item 首创TVP-VHAR模型融合多频率与时变特征
-\item 开发双向谱聚类解构发送-接收不对称性
-\end{itemize}
-\end{block}
 
-\begin{block}{应用创新}
-\begin{itemize}
-\item 揭示通胀溢出的频域通道
-\item 量化国家角色的动态迁移（如中国从接收者转为次级发送者）
-\end{itemize}
-\end{block}
-\end{frame}
 
+
+  
 \end{document}

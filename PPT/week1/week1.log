@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.8.21)  11 MAR 2025 20:09
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.8.21)  1 APR 2025 12:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1213,75 +1213,81 @@ Package pgfplots Warning: running in backwards compatibility mode (unsuitable ti
 ]
 
 LaTeX Font Warning: Font shape `TU/SimHei(0)/b/n' undefined
-(Font)              using `TU/SimHei(0)/m/n' instead on input line 72.
+(Font)              using `TU/SimHei(0)/m/n' instead on input line 67.
 
 [2
 
+] [3
+
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 92.
+File: fig/Inflation_Jenks.png Graphic file (type bmp)
+<fig/Inflation_Jenks.png>
+LaTeX Font Info:    Trying to load font information for U+msa on input line 113.
  (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 92.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 113.
  (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 92.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 113.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 92.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 113.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <6> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <10.95> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <8> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 92.
-LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 92.
- [3
-
-]
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 105.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 105.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <5> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 105.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 113.
+File: fig/Inflation_TimeSeries.png Graphic file (type bmp)
+<fig/Inflation_TimeSeries.png>
  [4
 
-] [5
+]
+File: fig/Inflation_CorrelationHeatmap.png Graphic file (type bmp)
+<fig/Inflation_CorrelationHeatmap.png>
+File: fig/Inflation_NetworkGraph.png Graphic file (type bmp)
+<fig/Inflation_NetworkGraph.png>
+
+Overfull \vbox (1.96681pt too high) detected at line 139
+ []
+
+[5
 
 ] [6
 
-] [7
+]
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <10.95> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <8> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <6> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <8> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <8> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <6> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 169.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <6> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 169.
+ [7
 
 ] [8
 
 ] [9
 
-] [10
+]
+File: fig/short_term_spillover_heatmap.png Graphic file (type bmp)
+<fig/short_term_spillover_heatmap.png>
+File: fig/long_term_spillover_heatmap.png Graphic file (type bmp)
+<fig/long_term_spillover_heatmap.png>
 
-] [11
+Overfull \vbox (26.34195pt too high) detected at line 226
+ []
 
-] [12
-
-] [13
-
-] [14
-
-] [15
+[10
 
 ]
 \tf@nav=\write6
@@ -1306,12 +1312,12 @@ Package rerunfilecheck Info: File `week1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 46606 strings out of 474773
- 1174894 string characters out of 5761289
- 1939842 words of memory out of 5000000
- 67950 multiletter control sequences out of 15000+600000
- 568424 words of font info for 114 fonts, out of 8000000 for 9000
+ 46614 strings out of 474773
+ 1175822 string characters out of 5761289
+ 1943842 words of memory out of 5000000
+ 67963 multiletter control sequences out of 15000+600000
+ 566653 words of font info for 97 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 128i,15n,123p,723b,796s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,123p,723b,919s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on week1.pdf (15 pages).
+Output written on week1.pdf (10 pages).
